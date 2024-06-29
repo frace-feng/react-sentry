@@ -1,30 +1,17 @@
-# React + TypeScript + Vite
+# 接入sentry
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 创建一个sentry项目
 
-Currently, two official plugins are available:
+根据sentry的指引文档拉取工具包
+把sentry的init方法引入项目中
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 打包sourcemap并上传到sentry服务器
 
-## Expanding the ESLint configuration
+<https://docs.sentry.io/platforms/javascript/guides/react/sourcemaps/uploading/>
+因为本地项目是vite创建所以用以下命令：
+`npx @sentry/wizard@latest -i sourcemaps`
+会把项目和sentry搭建连接
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 告警配置飞书
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+飞书创建自定义机器人事件，把事件的webhook地址复制到sentry的alerts中。当报错时，飞鼠机器人就会推送告警消息。
